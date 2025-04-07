@@ -112,7 +112,7 @@ const loginUser = asyncHandler(async (req, res) => {
   // 5. access and refresh token
   // 6. send cookie
 
-  const { email, username, password } = req.body;
+  const { username, email ,password } = req.body;
 
   if (!username && !email) {
     // both email and username is required
@@ -168,8 +168,8 @@ const logoutUser = asyncHandler(async (req, res) => {
   await User.findByIdAndUpdate(
     req.user._id,
     {
-      $set: {
-        refreshToken: undefined,
+      $unset: {
+        refreshToken: 1, // this removes the field from the document
       },
     },
     {
